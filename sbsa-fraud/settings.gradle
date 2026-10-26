@@ -1,0 +1,31 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'nexus'
+            url = uri('http://localhost:8081/repository/maven-public/')
+            allowInsecureProtocol = true   // local Nexus has no HTTPS
+            credentials(PasswordCredentials)
+        }
+    }
+}
+
+dependencyResolutionManagement {
+    // Fails the build if anyone adds mavenCentral() or another repository
+    // in build.gradle, so nothing can bypass Nexus.
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven {
+            name = 'nexus'
+            url = uri('http://localhost:8081/repository/maven-public/')
+            allowInsecureProtocol = true
+            credentials(PasswordCredentials)
+        }
+    }
+
+}
+
+rootProject.name = 'sbsa-fraud'
+
+
+
+

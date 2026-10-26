@@ -1,0 +1,21 @@
+# Master changelog: Liquibase applies these files in order.
+# Rule: a changeset is never edited once applied - corrections go in a new file.
+databaseChangeLog:
+  - include:
+      file: changes/001-baseline-wm02-tables.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changes/002-add-transaction-timestamp.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changes/003-create-fraud-rule.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changes/004-create-fraud-alert.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changes/005-create-decision-log.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changes/006-load-wm02-seed-data.sql
+      relativeToChangelogFile: true

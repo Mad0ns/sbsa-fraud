@@ -1,0 +1,22 @@
+# Nexus Repository for the SBSA fraud project.
+# MySQL runs locally on Windows, so only Nexus is containerised.
+#
+#   Start:  docker compose up -d
+#   Logs:   docker compose logs -f nexus        (ready when you see "Started Sonatype Nexus")
+#   Stop:   docker compose down                 (data is kept in the nexus-data volume)
+#
+# First admin password:
+#   docker compose exec nexus cat /nexus-data/admin.password
+
+services:
+  nexus:
+    image: sonatype/nexus3:3.87.0
+    container_name: nexus
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus-data:/nexus-data
+    restart: unless-stopped
+
+volumes:
+  nexus-data:

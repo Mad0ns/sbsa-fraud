@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: sbsa-fraud
+
+  # Credentials come from environment variables, never from this file (NFR-04).
+  # Set DB_USERNAME and DB_PASSWORD in the IntelliJ run configuration.
+  datasource:
+    url: jdbc:mysql://localhost:3306/sbsa_fraud?serverTimezone=UTC
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  # Liquibase owns the schema (NFR-07); Hibernate only checks that it matches.
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    contexts: dev            # dev loads the WM 02 seed data; omit in production
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+      naming:
+        # Keep table and column names exactly as Liquibase created them
+        # (TransactionTimestamp, not transaction_timestamp).
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC     # timestamps stored in UTC (Q6)
