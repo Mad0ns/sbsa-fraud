@@ -26,3 +26,9 @@ spring:
       hibernate:
         jdbc:
           time_zone: UTC     # timestamps stored in UTC (Q6)
+        type:
+          preferred_instant_jdbc_type: TIMESTAMP
+
+
+
+
