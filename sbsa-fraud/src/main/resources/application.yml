@@ -29,6 +29,8 @@ spring:
         type:
           preferred_instant_jdbc_type: TIMESTAMP
 
-
-
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
 
