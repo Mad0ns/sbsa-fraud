@@ -14,6 +14,9 @@ import za.co.sbsa.sbsa_fraud.service.TransactionService;
 import za.co.sbsa.sbsa_fraud.web.dto.TransactionDetailsResponse;
 import za.co.sbsa.sbsa_fraud.web.dto.TransactionRequest;
 import za.co.sbsa.sbsa_fraud.web.dto.TransactionResponse;
+// add to the imports
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * REST endpoints for submitting and looking up transactions.
@@ -22,6 +25,7 @@ import za.co.sbsa.sbsa_fraud.web.dto.TransactionResponse;
 @RestController
 @RequestMapping("/api/transactions")
 @RequiredArgsConstructor
+@Tag(name="Transactions",description ="Submit transaction and look them up")
 public class TransactionController {
 
     private final TransactionService transactionService;
@@ -32,6 +36,7 @@ public class TransactionController {
      * @return 201 Created, with a Location header for the new transaction
      */
     @PostMapping
+    @Operation(summary="Look up a transaction", description="Validates and fraud-screens the transaction, then returns 201 with the decision.")
     public ResponseEntity<TransactionResponse> submit(@Valid @RequestBody TransactionRequest request) {
         TransactionResponse response = transactionService.submit(request);
         return ResponseEntity
@@ -45,6 +50,7 @@ public class TransactionController {
      * @return 200 with the details, or 404 if the reference is unknown
      */
     @GetMapping("/{transactionRef}")
+    @Operation(summary ="Look up a transaction", description = "Returns the transaction and any fraud alerts, or 404 if the reference is unknown.")
     public TransactionDetailsResponse get(@PathVariable("transactionRef") String transactionRef) {
         return transactionService.findByReference(transactionRef);
     }
